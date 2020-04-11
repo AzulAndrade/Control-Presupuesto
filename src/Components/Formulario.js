@@ -3,7 +3,7 @@ import Error from "./Error";
 import shortid from "shortid";
 import PropTypes from "prop-types";
 
-const Formulario = ({ guardarGasto }) => {
+const Formulario = ({ guardarGasto, guardarCrearGasto }) => {
   const [tipo, setTipo] = useState("");
   const [cantidad, setCantidad] = useState(0);
   let [error, setError] = useState(false);
@@ -28,6 +28,7 @@ const Formulario = ({ guardarGasto }) => {
 
     //pasamos el nuevo gasto al componente
     guardarGasto(gasto);
+    guardarCrearGasto(true);
     setTipo("");
     setCantidad(0);
   };
@@ -45,14 +46,14 @@ const Formulario = ({ guardarGasto }) => {
             onChange={(e) => setTipo(e.target.value)}
           >
             <option selected>Tipo de compra</option>
-            <option value="1">Alquiler</option>
-            <option value="2">Expensas</option>
-            <option value="3">Gas</option>
-            <option value="4">Luz</option>
-            <option value="5">Agua</option>
-            <option value="6">Supermercado</option>
-            <option value="7">Restaurantes</option>
-            <option value="8">Oscio</option>
+            <option value="Alquiler">Alquiler</option>
+            <option value="Expensas">Expensas</option>
+            <option value="Gas">Gas</option>
+            <option value="Luz">Luz</option>
+            <option value="Agua">Agua</option>
+            <option value="Supermercado">Supermercado</option>
+            <option value="Restaurantes">Restaurantes</option>
+            <option value="Oscio">Oscio</option>
           </select>
         </div>
         <div className="row-1">
@@ -81,6 +82,7 @@ const Formulario = ({ guardarGasto }) => {
   );
 };
 Formulario.propTypes = {
-  guardarGasto: PropTypes.func.isRequired
+  guardarGasto: PropTypes.func.isRequired,
+  guardarCrearGasto: PropTypes.func.isRequired
 };
 export default Formulario;

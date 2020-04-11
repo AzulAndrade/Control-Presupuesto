@@ -14,22 +14,19 @@ function App() {
   //es {} porque gasto es un objeto
   const [gasto, guardarGasto] = useState({});
   //useEffect que actualiza el presupuesto restante
+  const [creargasto, guardarCrearGasto] = useState(false);
+
   useEffect(() => {
-    //agrega el nuevo presupuesto
-    guardarGastos([...gastos, gasto]);
-    //resta el nuevo gasto del presupuesto restante
-    //para eso creamos una variable presupuestoRestante que actualizara cada vez que se agregue un nuevo gasto
-    const presupuestoRestante = restante - gasto.cantidad;
-    setRestante(presupuestoRestante);
-  }, [gasto]);
-  //Agregamos un nuevo gasto
-  const agregarNuevoGasto = (gasto) => {
-    guardarGastos([
-      //trae todos los gastos guardados previamente, y ademas el nuevo gasto
-      ...gastos,
-      gasto,
-    ]);
-  };
+    if (creargasto) {
+      //agrega el nuevo presupuesto
+      guardarGastos([...gastos, gasto]);
+      //resta el nuevo gasto del presupuesto restante
+      //para eso creamos una variable presupuestoRestante que actualizara cada vez que se agregue un nuevo gasto
+      const presupuestoRestante = restante - gasto.cantidad;
+      setRestante(presupuestoRestante);
+      guardarCrearGasto(false);
+    }
+  }, [gasto, creargasto, gastos, restante]);
   return (
     <div>
       <h2>E-Wallet</h2>
@@ -45,154 +42,24 @@ function App() {
         </div>
       </div>
       <div className="abc">
-        <div className="contenido-cuatro contenido">
-          <div className="column1-restante">
-            <h3 className="card-text-price">Cantidad Restante:</h3>
-          </div>
-          <div className="column2-restante">
-            <h3 className="card-text-restante">$ 42000</h3>
-          </div>
-        </div>
+        <ControlPresupuesto 
+        presupuesto={presupuesto} 
+        restante={restante} />
       </div>
       <div className="abc">
         <div className="contenido-principal contenido">
           <Formulario
             guardarGasto={guardarGasto}
+            guardarCrearGasto={guardarCrearGasto}
           />
         </div>
       </div>
       <div className="abc">
         <Listado gastos={gastos} />
       </div>
-      <div className="abc">
-        <ControlPresupuesto presupuesto={presupuesto} restante={restante} />
-      </div>
 
       <div className="abc">
-        <div className="abc-secundario">
-          <div className="contenido-secundario contenido">
-            <div className="column1">
-              <img
-                src="supermarket.png"
-                alt="Avatar"
-                className="logo-supermarket"
-              ></img>
-            </div>
-            <div className="column2">
-              <p className="card-text-title">Supermercado</p>
-            </div>
-            <div className="column3">
-              <p className="card-text-price">$1500</p>
-            </div>
-          </div>
-          <div className="contenido-secundario contenido">
-            <div className="column1">
-              <img
-                src="supermarket.png"
-                alt="Avatar"
-                className="logo-supermarket"
-              ></img>
-            </div>
-            <div className="column2">
-              <p className="card-text-title">Supermercado</p>
-            </div>
-            <div className="column3">
-              <p className="card-text-price">$1500</p>
-            </div>
-          </div>
-          <div className="contenido-secundario contenido">
-            <div className="column1">
-              <img
-                src="supermarket.png"
-                alt="Avatar"
-                className="logo-supermarket"
-              ></img>
-            </div>
-            <div className="column2">
-              <p className="card-text-title">Supermercado</p>
-            </div>
-            <div className="column3">
-              <p className="card-text-price">$1500</p>
-            </div>
-          </div>
-          <div className="contenido-secundario contenido">
-            <div className="column1">
-              <img
-                src="supermarket.png"
-                alt="Avatar"
-                className="logo-supermarket"
-              ></img>
-            </div>
-            <div className="column2">
-              <p className="card-text-title">Supermercado</p>
-            </div>
-            <div className="column3">
-              <p className="card-text-price">$1500</p>
-            </div>
-          </div>
-        </div>
-        <div className="abc-secundario">
-          <div className="contenido-secundario contenido">
-            <div className="column1">
-              <img
-                src="supermarket.png"
-                alt="Avatar"
-                className="logo-supermarket"
-              ></img>
-            </div>
-            <div className="column2">
-              <p className="card-text-title">Supermercado</p>
-            </div>
-            <div className="column3">
-              <p className="card-text-price">$1500</p>
-            </div>
-          </div>
-          <div className="contenido-secundario contenido">
-            <div className="column1">
-              <img
-                src="supermarket.png"
-                alt="Avatar"
-                className="logo-supermarket"
-              ></img>
-            </div>
-            <div className="column2">
-              <p className="card-text-title">Supermercado</p>
-            </div>
-            <div className="column3">
-              <p className="card-text-price">$1500</p>
-            </div>
-          </div>
-          <div className="contenido-secundario contenido">
-            <div className="column1">
-              <img
-                src="supermarket.png"
-                alt="Avatar"
-                className="logo-supermarket"
-              ></img>
-            </div>
-            <div className="column2">
-              <p className="card-text-title">Supermercado</p>
-            </div>
-            <div className="column3">
-              <p className="card-text-price">$1500</p>
-            </div>
-          </div>
-          <div className="contenido-secundario contenido">
-            <div className="column1">
-              <img
-                src="supermarket.png"
-                alt="Avatar"
-                className="logo-supermarket"
-              ></img>
-            </div>
-            <div className="column2">
-              <p className="card-text-title">Supermercado</p>
-            </div>
-            <div className="column3">
-              <p className="card-text-price">$1500</p>
-            </div>
-          </div>
-        </div>
+        <div className="abc-secundario"></div>
       </div>
     </div>
   );
